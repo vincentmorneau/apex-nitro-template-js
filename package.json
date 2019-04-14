@@ -1,15 +1,13 @@
 {
-    "name": "apexjs-template-js-lib",
-    "version": "0.1.1",
-    "description": "Template to bootstrap a JavaScript library for Oracle APEX applications",
+    "name": "apex-nitro-template-js",
+    "version": "0.0.1",
+    "description": "Apex-Nitro Pro template to create a library bundle with JavaScript",
     "main": "index.js",
     "scripts": {},
-    "bin": {
-        "apexjs-template-js-lib": "./index.js"
-    },
     "keywords": [
         "oracle",
         "apex",
+        "apex-nitro",
         "javascript",
         "library"
     ],
@@ -21,11 +19,13 @@
     "devDependencies": {},
     "repository": {
         "type": "git",
-        "url": "https://github.com/dfrechdev/apexjs-template-js-lib"
+        "url": "https://github.com/dfrechdev/apex-nitro-template-js"
     },
     "bugs": {
-        "url": "https://github.com/dfrechdev/apexjs-template-js-lib/issues"
+        "url": "https://github.com/dfrechdev/apex-nitro-template-js"
     },
-    "author": "Daniel Frech",
-    "license": "MIT"
+    "authors": [
+        "Daniel Frech"
+    ],
+    "license": ""
 }

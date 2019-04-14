@@ -4,7 +4,8 @@
             "@babel/env",
             {
                 "targets": "last 2 versions, >0.25%, not dead",
-                "useBuiltIns": "usage"
+                "useBuiltIns": "usage",
+                "corejs": 3
             }
         ]
     ],
