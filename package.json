@@ -1,5 +1,5 @@
 {
-    "name": "apexjs-template-js-lib",
+    "name": "apex-nitro-template-js",
     "description": "Template to bootstrap a JavaScript library for Oracle APEX applications",
     "libraryCode": "test",
     "version": "1.0.0",
