@@ -5,9 +5,9 @@ const semverRegex = require('semver-regex');
 const inquirer = require('inquirer');
 
 /**
- * @exports { init, logWelcomeMsg }
+ * @exports init
  */
-module.exports = { init, logWelcomeMsg };
+module.exports = init;
 
 /**
  * @function init
@@ -40,6 +40,7 @@ function init(appDetails) {
                         version: answers['initial-version'],
                     };
                     writeLibDetails(libDetails);
+                    logWelcomeMsg(appDetails);
                     resolve(libDetails);
                 } catch (err) {
                     reject(err);
@@ -50,6 +51,7 @@ function init(appDetails) {
 }
 
 /**
+ * @private
  * @function logWelcomeMsg
  * @param appDetails
  * @param {string} appDetails.appName
