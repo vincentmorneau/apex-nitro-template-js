@@ -5,9 +5,9 @@ const semverRegex = require('semver-regex');
 const inquirer = require('inquirer');
 
 /**
- * @exports setupApp
+ * @exports { init, logWelcomeMsg }
  */
-module.exports = { setupApp, logWelcomeMsg };
+module.exports = { init, logWelcomeMsg };
 
 /**
  * @function init
