@@ -35,8 +35,8 @@ function init(appDetails) {
         return Promise.resolve(config);
     } else {
         console.log('Please answer the following questions:');
-        console.log('appDetails: ' + appDetails);
-        inquirer.prompt(getQuestions(appDetails)).then(answers => {
+        console.log('appDetails: ' + JSON.stringify(appDetails));
+        return inquirer.prompt(getQuestions(appDetails)).then(answers => {
             return new Promise((resolve, reject) => {
                 try {
                     config.libraryName = answers['library-name'];
