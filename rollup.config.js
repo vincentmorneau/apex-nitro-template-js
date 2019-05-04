@@ -5,41 +5,40 @@ import postcss from 'rollup-plugin-postcss';
 import cssnano from 'cssnano';
 import autoprefixer from 'autoprefixer';
 import replace from 'rollup-plugin-replace';
-import { terser } from "rollup-plugin-terser";
+import { terser } from 'rollup-plugin-terser';
 import { eslint } from 'rollup-plugin-eslint';
-import pkgJson from './package.json';
+import config from './apexnitro.config.json';
 
 export default [
     {
-        input: pkgJson.inputFile,
+        input: config.pro.main,
         output: {
-            name: pkgJson.libraryCode,
-            dir: 'dist',
-            file: `${pkgJson.name}${process.env.BUILD === 'production' ? '.min' : ''}.js`,
-            format: pkgJson.outputFormat,
+            name: config.pro.libraryCode,
+            file: `${config.distFolder}/${config.pro.libraryName}${
+                process.env.BUILD === 'production' ? '.min' : ''
+            }.js`,
+            format: 'iife',
             sourcemap: process.env.BUILD === 'production' ? false : 'inline',
-            globals: {
-                apex: 'apex',
-            },
+            globals: config.pro.globals,
         },
-        external: ['apex'],
+        external: config.pro.external,
         plugins: [
             replace({
-                include: './src/main.js',
+                include: config.pro.main,
                 values: {
-                    NPM_PACKAGE_PROJECT_NAME: pkgJson.name,
-                    NPM_PACKAGE_PROJECT_VERSION: pkgJson.version,
+                    NPM_PACKAGE_PROJECT_NAME: config.pro.libraryName,
+                    NPM_PACKAGE_PROJECT_VERSION: config.pro.version,
                 },
             }),
             postcss({
-                extensions: ['.css', '.less'],
+                extensions: config.pro.cssExtensions,
                 plugins: process.env.BUILD === 'production' ? [autoprefixer(), cssnano()] : [],
-                extract: `./dist/${pkgJson.name}${process.env.BUILD === 'production' ? '.min' : ''}.css`,
+                extract: `${config.distFolder}/${config.pro.libraryName}${
+                    process.env.BUILD === 'production' ? '.min' : ''
+                }.css`,
             }),
             resolve({
-                jsnext: true,
-                main: true,
-                browser: true,
+                mainFields: ['main'],
             }),
             commonjs(),
             eslint({ exclude: ['node_modules/**', 'src/styles/**'] }),

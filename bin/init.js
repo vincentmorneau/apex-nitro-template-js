@@ -20,27 +20,31 @@ module.exports = init;
  */
 function init(appDetails) {
     if (appDetails.suppressInquiry) {
-        const libDetails = {
+        const appDetails = {
             appName: appDetails.appName,
             appPath: appDetails.appPath,
             code: appDetails.appName,
             version: '1.0.0',
         };
-        writeLibDetails(libDetails);
+        writeappDetails(appDetails);
         return Promise.resolve('done');
     } else {
         console.log('Please answer the following questions:');
         return inquirer.prompt(getQuestions(appDetails)).then(answers => {
             return new Promise((resolve, reject) => {
                 try {
-                    const libDetails = {
-                        appName: appDetails.appName,
-                        appPath: appDetails.appPath,
-                        code: answers['library-code'],
-                        version: answers['initial-version'],
-                    };
-                    writeLibDetails(libDetails);
-                    resolve(libDetails);
+                    resolve({
+                        libraryName: answers['library-name'],
+                        libraryCode: answers['library-code'],
+                        main: './src/main.js',
+                        globals: {
+                            apex: 'apex',
+                        },
+                        external: ['apex'],
+                        cssExtensions: ['.css', '.less'],
+                        targets: 'last 2 versions, >0.25%, not dead',
+                        version: answers['version'],
+                    });
                 } catch (err) {
                     reject(err);
                 }
@@ -52,20 +56,18 @@ function init(appDetails) {
 /**
  * @private
  */
-function writeLibDetails(libDetails) {
-    const packageJsonPath = path.resolve(libDetails.appPath, 'package.json');
-    let packageJSON = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
-    packageJSON.name = libDetails.appName;
-    packageJSON.version = libDetails.version;
-    packageJSON.libraryCode = libDetails.code;
-    fs.writeFileSync(path.resolve(libDetails.appPath, 'package.json'), JSON.stringify(packageJSON, null, 4));
-}
-
-/**
- * @private
- */
 function getQuestions(appDetails) {
     return [
+        {
+            name: 'library-name',
+            type: 'input',
+            default: appDetails.appName,
+            message: 'Library name:',
+            validate: input => {
+                if (/^([A-Za-z\-\_\d])+$/.test(input)) return true;
+                else return 'The library name may only include letters, numbers, underscores and hashes.';
+            },
+        },
         {
             name: 'library-code',
             type: 'input',
