@@ -19,32 +19,30 @@ module.exports = init;
  * @description Entry point for creating a new app with the template
  */
 function init(appDetails) {
+    let config = {
+        libraryName: 'undefined',
+        libraryCode: 'undefined',
+        main: './src/main.js',
+        globals: {
+            apex: 'apex',
+        },
+        external: ['apex'],
+        cssExtensions: ['.css', '.less'],
+        targets: 'last 2 versions, >0.25%, not dead',
+        version: 'undefined',
+    };
     if (appDetails.suppressInquiry) {
-        const appDetails = {
-            appName: appDetails.appName,
-            appPath: appDetails.appPath,
-            code: appDetails.appName,
-            version: '1.0.0',
-        };
-        writeappDetails(appDetails);
-        return Promise.resolve('done');
+        return Promise.resolve(config);
     } else {
         console.log('Please answer the following questions:');
-        return inquirer.prompt(getQuestions(appDetails)).then(answers => {
+        console.log();
+        inquirer.prompt(getQuestions(appDetails)).then(answers => {
             return new Promise((resolve, reject) => {
                 try {
-                    resolve({
-                        libraryName: answers['library-name'],
-                        libraryCode: answers['library-code'],
-                        main: './src/main.js',
-                        globals: {
-                            apex: 'apex',
-                        },
-                        external: ['apex'],
-                        cssExtensions: ['.css', '.less'],
-                        targets: 'last 2 versions, >0.25%, not dead',
-                        version: answers['version'],
-                    });
+                    config.libraryName = answers['library-name'];
+                    config.libraryCode = answers['library-code'];
+                    config.version = answers['version'];
+                    resolve(config);
                 } catch (err) {
                     reject(err);
                 }
