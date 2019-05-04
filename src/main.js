@@ -1,11 +1,11 @@
-// optional imports for apex and jQuery, remove if you do not need them
-// copy into any file where you do need them
-import apex from 'apex';
-const $ = apex.jQuery;
+// optional imports for apex and jQuery, uncomment if needed in this file
+// or copy into any file where needed
+//import apex from 'apex';
+//const $ = apex.jQuery;
 
 // import of the main less file containing your styles
 // you may remove this import if you do not want to bundle styles
-import './css/main.less';
+import './main.less';
 
 // main information about the project
 // name and version will be injected during the build
