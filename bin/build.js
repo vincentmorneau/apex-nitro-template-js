@@ -13,12 +13,10 @@ module.exports = build;
  */
 function build(buildMode) {
     return new Promise((resolve, reject) => {
-        let command;
-        const script = buildMode.toLowerCase() === 'dev' ? 'build-dev' : 'build';
+        let command = 'npm';
+        const scriptName = buildMode.toLowerCase() === 'dev' ? 'build-dev' : 'build';
 
-        command = `npm run ${script}`;
-
-        const child = spawn(command, [], { stdio: 'inherit' });
+        const child = spawn(command, ['run', scriptName], { cwd: process.cwd(), stdio: 'inherit' });
         child.on('close', code => {
             if (code !== 0) {
                 reject({
