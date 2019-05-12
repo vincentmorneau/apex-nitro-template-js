@@ -11,23 +11,6 @@ module.exports = publish;
  * @description Entry point for publishing the build files
  */
 async function publish() {
-    // run production build before publishing files
-    await new Promise((resolve, reject) => {
-        let command;
-        command = `npm run build`;
-
-        const child = spawn(command, [], { stdio: 'inherit' });
-        child.on('close', code => {
-            if (code !== 0) {
-                reject({
-                    command: `${command} ${args.join(' ')}`,
-                });
-                return;
-            }
-            resolve('done');
-        });
-    });
-
     // no template specific publish implementation is used
     // referring back to nitro to use the default publish method to APEX
     return Promise.resolve(true);

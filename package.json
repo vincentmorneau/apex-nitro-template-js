@@ -35,9 +35,10 @@
     },
     "scripts": {
         "test": "ava ./test/**/*.test.js",
-        "build-dev": "rollup -c ./rollup.config.js --environment BUILD:dev",
-        "build": "rollup -c ./rollup.config.js --environment BUILD:production",
-        "doc": "jsdoc -c ./jsdoc.conf -d ./dist/doc -R ./README.md"
+        "bundle-dev": "rollup -c ./rollup.config.js --environment BUILD:dev",
+        "bundle-prod": "rollup -c ./rollup.config.js --environment BUILD:production",
+        "doc": "jsdoc -c ./jsdoc.conf -d ./dist/doc -R ./README.md",
+        "build": "bundle-dev && bundle-prod"
     },
     "ava": {
         "require": [
