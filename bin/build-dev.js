@@ -1,3 +1,5 @@
+const spawn = require('cross-spawn');
+
 /**
  * @exports build
  */
@@ -12,7 +14,7 @@ function build() {
     return new Promise((resolve, reject) => {
         let command;
 
-        command = 'npm run bundle-dev';
+        command = 'npm run build-dev';
 
         const child = spawn(command, [], { stdio: 'inherit' });
         child.on('close', code => {

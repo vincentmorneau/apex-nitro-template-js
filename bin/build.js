@@ -14,7 +14,7 @@ function build() {
     return new Promise((resolve, reject) => {
         let command;
 
-        command = 'npm run bundle';
+        command = 'npm run build';
 
         const child = spawn(command, [], { stdio: 'inherit' });
         child.on('close', code => {
