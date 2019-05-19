@@ -1,9 +1,0 @@
-language: node_js
-dist: xenial
-node_js:
-    - "lts/*"
-branches:
-    only:
-        - master
-script:
-    - npx apex-nitro-template-js -s -t git+https://git@github.com/dfrechdev/apex-nitro-template-js.git; cd testApp; npm run build

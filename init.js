@@ -1,6 +1,3 @@
-const fs = require('fs');
-const path = require('path');
-const chalk = require('chalk');
 const semverRegex = require('semver-regex');
 const inquirer = require('inquirer');
 
@@ -19,50 +16,57 @@ module.exports = init;
  * @description Entry point for creating a new app with the template
  */
 function init(appDetails) {
-    let config = {
+    const config = {
         libraryName: 'undefined',
         libraryCode: 'undefined',
         main: './src/main.js',
         globals: {
-            apex: 'apex',
+            apex: 'apex'
         },
         external: ['apex'],
         cssExtensions: ['.css', '.less'],
         targets: 'last 2 versions, >0.25%, not dead',
-        version: 'undefined',
+        version: 'undefined'
     };
     if (appDetails.suppressInquiry) {
         return Promise.resolve(config);
-    } else {
-        return inquirer.prompt(getQuestions(appDetails)).then(answers => {
-            return new Promise((resolve, reject) => {
-                try {
-                    config.libraryName = answers['library-name'];
-                    config.libraryCode = answers['library-code'];
-                    config.version = answers['version'];
-
-                    // browsersync settings:
-                    config.browsersync.realTime = true;
-                    config.browsersync.ghostMode = false;
-                    config.browsersync.notify = true;
-                    config.apex = {};
-                    config.apex.openBuilder = false;
-
-                    // publish defaults:
-                    config.publish.destination = 'application';
-                    config.publish.path = 'sqlcl';
-                    config.publish.username = '';
-                    config.publish.password = '';
-                    config.publish.connectionString = '';
-
-                    resolve(config);
-                } catch (err) {
-                    reject(err);
-                }
-            });
-        });
     }
+    return inquirer.prompt(getQuestions(appDetails)).then(answers => {
+        return new Promise((resolve, reject) => {
+            try {
+                config.libraryName = answers['library-name'];
+                config.libraryCode = answers['library-code'];
+                config.version = answers['version'];
+
+                // browsersync settings:
+                config.browsersync.realTime = true;
+                config.browsersync.ghostMode = false;
+                config.browsersync.notify = true;
+                config.apex = {};
+                config.apex.openBuilder = false;
+
+                // publish defaults:
+                config.publish.destination = 'application';
+                config.publish.path = 'sqlcl';
+                config.publish.username = '';
+                config.publish.password = '';
+                config.publish.connectionString = '';
+
+                resolve(config);
+            } catch (err) {
+                reject(err);
+            }
+        });
+    });
 }
+
+const isRequired = function(input) {
+    if (input !== '') {
+        return true;
+    }
+
+    return 'Required.';
+};
 
 /**
  * @private
@@ -74,7 +78,7 @@ function getQuestions(appDetails) {
             name: 'srcFolder',
             message: 'Location of the source folder?',
             default: './src',
-            validate: isRequired,
+            validate: isRequired
         },
         {
             type: 'input',
@@ -84,7 +88,7 @@ function getQuestions(appDetails) {
             validate: isRequired,
             when(answers) {
                 return ['advanced', 'pro'].includes(answers.mode);
-            },
+            }
         },
         {
             name: 'library-name',
@@ -93,8 +97,9 @@ function getQuestions(appDetails) {
             message: 'Library name:',
             validate: input => {
                 if (/^([A-Za-z\-\_\d])+$/.test(input)) return true;
-                else return 'The library name may only include letters, numbers, underscores and hashes.';
-            },
+                else
+                    return 'The library name may only include letters, numbers, underscores and hashes.';
+            }
         },
         {
             name: 'library-code',
@@ -103,8 +108,9 @@ function getQuestions(appDetails) {
             message: 'Library code:',
             validate: input => {
                 if (/^([A-Za-z\-\_\d])+$/.test(input)) return true;
-                else return 'The library code may only include letters, numbers, underscores and hashes.';
-            },
+                else
+                    return 'The library code may only include letters, numbers, underscores and hashes.';
+            }
         },
         {
             name: 'initial-version',
@@ -114,13 +120,13 @@ function getQuestions(appDetails) {
             validate: input => {
                 if (semverRegex().test(input)) return true;
                 else return 'The initial version must match a semantic versions such as 0.0.1';
-            },
+            }
         },
         {
             type: 'input',
             name: 'appURL',
             message: 'The URL of your APEX application?',
-            validate: isRequired,
-        },
+            validate: isRequired
+        }
     ];
 }

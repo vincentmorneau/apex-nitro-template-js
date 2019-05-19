@@ -1,52 +1,35 @@
 {
     "name": "apex-nitro-template-js",
-    "description": "Template to bootstrap a JavaScript library for Oracle APEX applications",
-    "version": "1.0.0",
+    "version": "0.1.1",
+    "description": "Template to build a JavaScript library with Apex-Nitro",
+    "main": "init.js",
+    "bin": {
+        "apex-nitro-template-js": "./init.js"
+    },
+    "keywords": [
+        "oracle",
+        "apex",
+        "apex-nitro",
+        "javascript",
+        "library"
+    ],
     "dependencies": {
-        "@babel/polyfill": "^7.4.4",
-        "core-js": "^3.0.1"
+        "inquirer": "^6.2.0",
+        "semver-regex": "^2.0.0"
     },
     "devDependencies": {
-        "@babel/cli": "^7.1.2",
-        "@babel/core": "^7.1.2",
-        "@babel/preset-env": "^7.1.0",
-        "@babel/register": "^7.0.0",
-        "autoprefixer": "^9.3.1",
-        "ava": "1.4.1",
-        "babel-plugin-istanbul": "^5.1.0",
-        "babelify": "^10.0.0",
-        "chalk": "^2.4.1",
-        "cssnano": "^4.1.5",
-        "eslint": "^5.8.0",
-        "ignore-styles": "^5.0.1",
-        "inquirer": "^6.2.0",
-        "jsdoc": "^3.5.5",
-        "less": "^3.8.1",
-        "log-symbols": "^3.0.0",
-        "rollup": "^1.11.2",
-        "rollup-plugin-babel": "^4.0.3",
-        "rollup-plugin-commonjs": "^9.1.0",
-        "rollup-plugin-eslint": "^5.0.0",
-        "rollup-plugin-node-resolve": "^4.2.3",
-        "rollup-plugin-postcss": "^2.0.3",
-        "rollup-plugin-replace": "^2.1.0",
-        "rollup-plugin-terser": "^4.0.4",
-        "semver-regex": "^3.1.0"
+        "xo": "^0.24.0"
     },
     "scripts": {
-        "test": "ava ./test/**/*.test.js",
-        "bundle-dev": "rollup -c ./rollup.config.js --environment BUILD:dev",
-        "bundle-prod": "rollup -c ./rollup.config.js --environment BUILD:production",
-        "doc": "jsdoc -c ./jsdoc.conf -d ./dist/doc -R ./README.md",
-        "build": "bundle-dev && bundle-prod"
+        "test": "xo"
     },
-    "ava": {
-        "require": [
-            "@babel/polyfill",
-            "@babel/register",
-            "ignore-styles"
-        ]
+    "xo": {
+        "ignores": []
     },
-    "author": "",
-    "license": ""
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/dfrechdev/apex-nitro-template-js"
+    },
+    "author": "Daniel Frech, Vincent Morneau",
+    "license": "MIT"
 }
