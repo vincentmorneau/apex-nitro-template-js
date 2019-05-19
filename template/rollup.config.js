@@ -11,27 +11,27 @@ import config from './apexnitro.config.json';
 
 export default [
     {
-        input: config.pro.main,
+        input: config.main,
         output: {
-            name: config.pro.libraryCode,
-            file: `${config.distFolder}/${config.pro.libraryName}.js`,
+            name: config.libraryCode,
+            file: `${config.distFolder}/${config.libraryName}.js`,
             format: 'iife',
             sourcemap: process.env.BUILD === 'production' ? false : 'inline',
-            globals: config.pro.globals,
+            globals: config.globals,
         },
-        external: config.pro.external,
+        external: config.external,
         plugins: [
             replace({
-                include: config.pro.main,
+                include: config.main,
                 values: {
-                    NPM_PACKAGE_PROJECT_NAME: config.pro.libraryName,
-                    NPM_PACKAGE_PROJECT_VERSION: config.pro.version,
+                    NPM_PACKAGE_PROJECT_NAME: config.libraryName,
+                    NPM_PACKAGE_PROJECT_VERSION: config.version,
                 },
             }),
             postcss({
-                extensions: config.pro.cssExtensions,
+                extensions: config.cssExtensions,
                 plugins: process.env.BUILD === 'production' ? [autoprefixer(), cssnano()] : [],
-                extract: `${config.distFolder}/${config.pro.libraryName}.css`,
+                extract: `${config.distFolder}/${config.libraryName}.css`,
             }),
             resolve({
                 mainFields: ['main'],
