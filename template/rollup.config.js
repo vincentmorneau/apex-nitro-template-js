@@ -14,7 +14,9 @@ export default [
         input: config.main,
         output: {
             name: config.libraryCode,
-            file: `${config.distFolder}/${config.libraryName}.js`,
+            file: `${config.distFolder}/${config.libraryName}${
+                process.env.BUILD === 'production' ? '.min' : ''
+            }.js`,
             format: 'iife',
             sourcemap: process.env.BUILD === 'production' ? false : 'inline',
             globals: config.globals,
@@ -31,7 +33,9 @@ export default [
             postcss({
                 extensions: config.cssExtensions,
                 plugins: process.env.BUILD === 'production' ? [autoprefixer(), cssnano()] : [],
-                extract: `${config.distFolder}/${config.libraryName}.css`,
+                extract: `${config.distFolder}/${config.libraryName}${
+                    process.env.BUILD === 'production' ? '.min' : ''
+                }.css`,
             }),
             resolve({
                 mainFields: ['main'],
