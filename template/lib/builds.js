@@ -4,8 +4,8 @@ const { runCommand } = require('./commandRunner');
  * @exports buildSteps
  */
 module.exports = {
-    buildDev,
-    buildProduction,
+    launchBuild,
+    publishBuild,
     bundleDev,
     bundleProd,
     lint,
@@ -14,22 +14,22 @@ module.exports = {
 };
 
 /**
- * @function buildDev
+ * @function launchBuild
  * @returns {PromiseLike}
  * @description Entry point for apex-nitro for building the project
  */
-async function buildDev() {
+async function launchBuild() {
     await lint();
     await bundleDev();
     await bundleProd();
 }
 
 /**
- * @function buildProduction
+ * @function publishBuild
  * @returns {PromiseLike}
  * @description Entry point for apex-nitro for building the project
  */
-async function buildProduction() {
+async function publishBuild() {
     await lint();
     await test();
     await jsdoc();
