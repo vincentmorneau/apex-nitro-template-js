@@ -89,10 +89,7 @@ function getQuestions(appDetails) {
             name: "dist-folder",
             message: "Location of the distribution folder?",
             default: "./dist",
-            validate: isRequired,
-            when(answers) {
-                return ["advanced", "pro"].includes(answers.mode);
-            }
+            validate: isRequired
         },
         {
             name: "library-name",
