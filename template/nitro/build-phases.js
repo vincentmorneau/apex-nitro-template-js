@@ -1,7 +1,5 @@
-const { runCommand } = require('./commandRunner');
-
 /**
- * @exports buildSteps
+ * @exports stages
  */
 module.exports = {
     launchBuild,
@@ -59,4 +57,22 @@ function jsdoc() {
 
 function test() {
     return runCommand('npx', ['ava', './test/**/*.test.js'], 'inherit');
+}
+
+function runCommand(command, args, stdioSetting = 'ignore') {
+    return new Promise((resolve, reject) => {
+        const child = spawn(command, args, {
+            cwd: process.cwd(),
+            stdio: stdioSetting,
+        });
+        child.on('close', code => {
+            if (code !== 0) {
+                reject({
+                    command: `${command} ${args.join(' ')}`,
+                });
+                return;
+            }
+            resolve('done');
+        });
+    });
 }

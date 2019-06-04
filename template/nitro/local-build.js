@@ -1,4 +1,4 @@
-const { launchBuild, publishBuild, bundleDev, bundleProd, jsdoc, lint, test } = require('../lib/builds');
+const { launchBuild, publishBuild, bundleDev, bundleProd, jsdoc, lint, test } = require('./build-phases');
 const commander = require('commander');
 
 if (process.argv.slice(2).length > 0) {

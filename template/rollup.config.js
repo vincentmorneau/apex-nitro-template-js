@@ -14,7 +14,7 @@ export default [
         input: config.main,
         output: {
             name: config.libraryCode,
-            file: `${config.distFolder}/${config.libraryName}${
+            file: `${config.distFolder}/${config.projectName}${
                 process.env.BUILD === 'production' ? '.min' : ''
             }.js`,
             format: 'iife',
@@ -26,14 +26,14 @@ export default [
             replace({
                 include: config.main,
                 values: {
-                    NPM_PACKAGE_PROJECT_NAME: config.libraryName,
+                    NPM_PACKAGE_PROJECT_NAME: config.projectName,
                     NPM_PACKAGE_PROJECT_VERSION: config.version,
                 },
             }),
             postcss({
                 extensions: config.cssExtensions,
                 plugins: process.env.BUILD === 'production' ? [autoprefixer(), cssnano()] : [],
-                extract: `${config.distFolder}/${config.libraryName}${
+                extract: `${config.distFolder}/${config.projectName}${
                     process.env.BUILD === 'production' ? '.min' : ''
                 }.css`,
             }),

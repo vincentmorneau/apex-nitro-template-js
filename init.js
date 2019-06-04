@@ -1,5 +1,5 @@
-const semverRegex = require("semver-regex");
-const inquirer = require("inquirer");
+const semverRegex = require('semver-regex');
+const inquirer = require('inquirer');
 
 /**
  * @exports init
@@ -17,28 +17,28 @@ module.exports = init;
  */
 function init(appDetails) {
     const config = {
-        libraryName: "undefined",
-        libraryCode: "undefined",
-        main: "./src/main.js",
+        projectName: 'undefined',
+        libraryCode: 'undefined',
+        main: './src/main.js',
         globals: {
-            apex: "apex"
+            apex: 'apex'
         },
-        external: ["apex"],
-        cssExtensions: [".css", ".less"],
-        targets: "last 2 versions, >0.25%, not dead",
-        version: "undefined"
+        external: ['apex'],
+        cssExtensions: ['.css', '.less'],
+        version: 'undefined'
     };
     if (appDetails.suppressInquiry) {
         return Promise.resolve(config);
     }
-    return inquirer.prompt(getQuestions(appDetails)).then(answers => {
+    return inquirer.prompt(getQuestions(appDetails)).then((answers) => {
         return new Promise((resolve, reject) => {
             try {
-                config.srcFolder = answers["src-folder"];
-                config.distFolder = answers["dist-folder"];
-                config.libraryName = answers["library-name"];
-                config.libraryCode = answers["library-code"];
-                config.version = answers["version"];
+                config.srcFolder = answers['src-folder'];
+                config.distFolder = answers['dist-folder'];
+                config.projectName = answers['project-name'];
+                config.libraryCode = answers['library-code'];
+                config.version = answers['version'];
+                config.appUrl = answers['app-url'];
 
                 // set default browsersync settings:
                 config.browsersync = {};
@@ -50,11 +50,11 @@ function init(appDetails) {
 
                 // set default publish settings:
                 config.publish = {};
-                config.publish.destination = "application";
-                config.publish.path = "sqlcl";
-                config.publish.username = "";
-                config.publish.password = "";
-                config.publish.connectionString = "";
+                config.publish.destination = 'application';
+                config.publish.path = 'sqlcl';
+                config.publish.username = '';
+                config.publish.password = '';
+                config.publish.connectionString = '';
 
                 resolve(config);
             } catch (err) {
@@ -65,11 +65,11 @@ function init(appDetails) {
 }
 
 const isRequired = function(input) {
-    if (input !== "") {
+    if (input !== '') {
         return true;
     }
 
-    return "Required.";
+    return 'Required.';
 };
 
 /**
@@ -78,55 +78,53 @@ const isRequired = function(input) {
 function getQuestions(appDetails) {
     return [
         {
-            type: "input",
-            name: "src-folder",
-            message: "Location of the source folder?",
-            default: "./src",
+            type: 'input',
+            name: 'src-folder',
+            message: 'Location of the source folder?',
+            default: './src',
             validate: isRequired
         },
         {
-            type: "input",
-            name: "dist-folder",
-            message: "Location of the distribution folder?",
-            default: "./dist",
+            type: 'input',
+            name: 'dist-folder',
+            message: 'Location of the distribution folder?',
+            default: './dist',
             validate: isRequired
         },
         {
-            name: "library-name",
-            type: "input",
+            name: 'project-name',
+            type: 'input',
             default: appDetails.appName,
-            message: "Library name:",
-            validate: input => {
+            message: 'Project name:',
+            validate: (input) => {
                 if (/^([A-Za-z\-\_\d])+$/.test(input)) return true;
-                else
-                    return "The library name may only include letters, numbers, underscores and hashes.";
+                else return 'The project name may only include letters, numbers, underscores and hashes.';
             }
         },
         {
-            name: "library-code",
-            type: "input",
+            name: 'library-code',
+            type: 'input',
             default: appDetails.appName,
-            message: "Library code:",
-            validate: input => {
+            message: 'Library code:',
+            validate: (input) => {
                 if (/^([A-Za-z\-\_\d])+$/.test(input)) return true;
-                else
-                    return "The library code may only include letters, numbers, underscores and hashes.";
+                else return 'The library code may only include letters, numbers, underscores and hashes.';
             }
         },
         {
-            name: "initial-version",
-            type: "input",
-            message: "Initial version:",
-            default: "1.0.0",
-            validate: input => {
+            name: 'initial-version',
+            type: 'input',
+            message: 'Initial version:',
+            default: '1.0.0',
+            validate: (input) => {
                 if (semverRegex().test(input)) return true;
-                else return "The initial version must match a semantic versions such as 0.0.1";
+                else return 'The initial version must match a semantic versions such as 0.0.1';
             }
         },
         {
-            type: "input",
-            name: "appURL",
-            message: "The URL of your APEX application?",
+            type: 'input',
+            name: 'app-url',
+            message: 'The URL of your APEX application?',
             validate: isRequired
         }
     ];
