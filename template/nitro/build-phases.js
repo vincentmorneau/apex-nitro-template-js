@@ -1,3 +1,5 @@
+const spawn = require('cross-spawn');
+
 /**
  * @exports stages
  */
