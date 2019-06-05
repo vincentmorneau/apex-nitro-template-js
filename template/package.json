@@ -31,6 +31,15 @@
         "rollup-plugin-terser": "^5.0.0",
         "semver-regex": "^3.1.0"
     },
+    "scripts": {
+        "build:dev": "node ./nitro/local-build --build-dev",
+        "build:prod": "node ./nitro/local-build --build-dev",
+        "bundle:dev": "node ./nitro/local-build --bundle-dev",
+        "bundle:prod": "node ./nitro/local-build --bundle-prod",
+        "lint": "node ./nitro/local-build --lint",
+        "jsdoc": "node ./nitro/local-build --jsdoc",
+        "test": "node ./nitro/local-build --test"
+    },
     "ava": {
         "require": [
             "@babel/polyfill",

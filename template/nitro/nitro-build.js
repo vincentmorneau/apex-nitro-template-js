@@ -1,6 +1,6 @@
-const { launchBuild, publishBuild } = require('./build-phases');
+const { buildDev, buildProd } = require('./build-phases');
 
 module.exports = {
-    launchBuild,
-    publishBuild,
+    buildDev,
+    buildProd,
 };

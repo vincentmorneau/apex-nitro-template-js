@@ -4,8 +4,8 @@ const spawn = require('cross-spawn');
  * @exports stages
  */
 module.exports = {
-    launchBuild,
-    publishBuild,
+    buildDev,
+    buildProd,
     bundleDev,
     bundleProd,
     lint,
@@ -14,22 +14,22 @@ module.exports = {
 };
 
 /**
- * @function launchBuild
+ * @function buildDev
  * @returns {PromiseLike}
  * @description Entry point for apex-nitro for building the project
  */
-async function launchBuild() {
+async function buildDev() {
     await lint();
     await bundleDev();
     await bundleProd();
 }
 
 /**
- * @function publishBuild
+ * @function buildProd
  * @returns {PromiseLike}
  * @description Entry point for apex-nitro for building the project
  */
-async function publishBuild() {
+async function buildProd() {
     await lint();
     await test();
     await jsdoc();
@@ -37,28 +37,53 @@ async function publishBuild() {
     await bundleProd();
 }
 
-function bundleDev() {
-    return runCommand('npx', ['rollup', '-c', './rollup.config.js', '--environment', 'BUILD:dev']);
+async function bundleDev() {
+    try {
+        await runCommand('npx', ['rollup', '-c', './rollup.config.js', '--environment', 'BUILD:dev']);
+    } catch (err) {
+        console.error(err);
+        process.exit(0);
+    }
 }
 
-function bundleProd() {
-    return runCommand('npx', ['rollup', '-c', './rollup.config.js', '--environment', 'BUILD:production']);
+async function bundleProd() {
+    try {
+        await runCommand('npx', ['rollup', '-c', './rollup.config.js', '--environment', 'BUILD:production']);
+    } catch (err) {
+        console.error(err);
+        process.exit(1);
+    }
 }
 
-function lint() {
-    return runCommand(
-        'npx',
-        ['eslint', '-c', '.eslintrc.json', '--ignore-path', '.eslintignore', './src/'],
-        'inherit'
-    );
+async function lint() {
+    try {
+        await runCommand(
+            'npx',
+            ['eslint', '-c', '.eslintrc.json', '--ignore-path', '.eslintignore', './src/'],
+            'inherit'
+        );
+    } catch (err) {
+        console.error(err);
+        process.exit(1);
+    }
 }
 
-function jsdoc() {
-    return runCommand('npx', ['jsdoc', '-c', './jsdoc.conf', '-d', './dist/doc', '-R', './README.md']);
+async function jsdoc() {
+    try {
+        await runCommand('npx', ['jsdoc', '-c', './jsdoc.conf', '-d', './dist/doc', '-R', './README.md']);
+    } catch (err) {
+        console.error(err);
+        process.exit(1);
+    }
 }
 
-function test() {
-    return runCommand('npx', ['ava', './test/**/*.test.js'], 'inherit');
+async function test() {
+    try {
+        await runCommand('npx', ['ava', './test/**/*.test.js'], 'inherit');
+    } catch (err) {
+        console.error(err);
+        process.exit(1);
+    }
 }
 
 function runCommand(command, args, stdioSetting = 'ignore') {
