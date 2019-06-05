@@ -78,20 +78,6 @@ const isRequired = function(input) {
 function getQuestions(appDetails) {
     return [
         {
-            type: 'input',
-            name: 'src-folder',
-            message: 'Location of the source folder?',
-            default: './src',
-            validate: isRequired
-        },
-        {
-            type: 'input',
-            name: 'dist-folder',
-            message: 'Location of the distribution folder?',
-            default: './dist',
-            validate: isRequired
-        },
-        {
             name: 'project-name',
             type: 'input',
             default: appDetails.appName,
@@ -120,6 +106,20 @@ function getQuestions(appDetails) {
                 if (semverRegex().test(input)) return true;
                 else return 'The initial version must match a semantic versions such as 0.0.1';
             }
+        },
+        {
+            type: 'input',
+            name: 'src-folder',
+            message: 'Location of the source folder?',
+            default: './src',
+            validate: isRequired
+        },
+        {
+            type: 'input',
+            name: 'dist-folder',
+            message: 'Location of the distribution folder?',
+            default: './dist',
+            validate: isRequired
         },
         {
             type: 'input',
