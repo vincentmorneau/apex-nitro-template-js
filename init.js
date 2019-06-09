@@ -76,7 +76,7 @@ function getTemplateQuestions(appDetails) {
         {
             name: 'library-code',
             type: 'input',
-            default: defaults.libraryCode,
+            default: appDetails.appName,
             message: 'Library code:',
             validate: (input) => {
                 if (/^([A-Za-z\-\_\d])+$/.test(input)) return true;
