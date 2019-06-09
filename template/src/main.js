@@ -5,7 +5,8 @@
 
 // import of the main less file containing your styles
 // you may remove this import if you do not want to bundle styles
-import './main.less';
+// you may import .less or other file extensions for CSS preprocessing, if you support them in your project
+import './main.css';
 
 // main information about the project
 // name and version will be injected during the build

@@ -41,8 +41,7 @@ async function bundleDev() {
     try {
         await runCommand('npx', ['rollup', '-c', './rollup.config.js', '--environment', 'BUILD:dev']);
     } catch (err) {
-        console.error(err);
-        process.exit(0);
+        process.exit(1);
     }
 }
 
@@ -50,7 +49,6 @@ async function bundleProd() {
     try {
         await runCommand('npx', ['rollup', '-c', './rollup.config.js', '--environment', 'BUILD:production']);
     } catch (err) {
-        console.error(err);
         process.exit(1);
     }
 }
@@ -63,7 +61,6 @@ async function lint() {
             'inherit'
         );
     } catch (err) {
-        console.error(err);
         process.exit(1);
     }
 }
@@ -72,7 +69,6 @@ async function jsdoc() {
     try {
         await runCommand('npx', ['jsdoc', '-c', './jsdoc.conf', '-d', './dist/doc', '-R', './README.md']);
     } catch (err) {
-        console.error(err);
         process.exit(1);
     }
 }
@@ -81,12 +77,11 @@ async function test() {
     try {
         await runCommand('npx', ['ava', './test/**/*.test.js'], 'inherit');
     } catch (err) {
-        console.error(err);
         process.exit(1);
     }
 }
 
-function runCommand(command, args, stdioSetting = 'ignore') {
+function runCommand(command, args, stdioSetting = ['pipe', 'pipe', process.stderr]) {
     return new Promise((resolve, reject) => {
         const child = spawn(command, args, {
             cwd: process.cwd(),
