@@ -32,7 +32,7 @@
     },
     "scripts": {
         "build:dev": "node ./nitro/local-build --build-dev",
-        "build:prod": "node ./nitro/local-build --build-dev",
+        "build:prod": "node ./nitro/local-build --build-prod",
         "bundle:dev": "node ./nitro/local-build --bundle-dev",
         "bundle:prod": "node ./nitro/local-build --bundle-prod",
         "lint": "node ./nitro/local-build --lint",

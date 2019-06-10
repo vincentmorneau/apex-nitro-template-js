@@ -47,6 +47,6 @@ if (process.argv.slice(2).length > 0) {
 } else {
     // Default action, when no option is given
     (async () => {
-        await launchBuild();
+        await bundleDev();
     })();
 }

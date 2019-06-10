@@ -81,7 +81,7 @@ async function test() {
     }
 }
 
-function runCommand(command, args, stdioSetting = ['pipe', 'pipe', process.stderr]) {
+function runCommand(command, args, stdioSetting = ['pipe', 'pipe', 'inherit']) {
     return new Promise((resolve, reject) => {
         const child = spawn(command, args, {
             cwd: process.cwd(),
