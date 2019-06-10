@@ -24,7 +24,7 @@ async function init(appDetails) {
             apex: 'apex'
         },
         srcFolder: './src',
-        distFolder: './dist',
+        distFolder: './build',
         external: ['apex'],
         cssExtensions: ['.css'],
         version: '1.0.0'

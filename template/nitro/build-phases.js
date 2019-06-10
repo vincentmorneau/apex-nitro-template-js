@@ -60,8 +60,9 @@ async function lint() {
             ['eslint', '-c', '.eslintrc.json', '--ignore-path', '.eslintignore', './src/'],
             'inherit'
         );
+        return true;
     } catch (err) {
-        process.exit(1);
+        return false;
     }
 }
 
@@ -81,7 +82,7 @@ async function test() {
     }
 }
 
-function runCommand(command, args, stdioSetting = ['pipe', 'pipe', 'inherit']) {
+function runCommand(command, args, stdioSetting = ['ignore', 'ignore', process.stderr]) {
     return new Promise((resolve, reject) => {
         const child = spawn(command, args, {
             cwd: process.cwd(),
