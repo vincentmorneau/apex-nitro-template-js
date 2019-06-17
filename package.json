@@ -1,6 +1,6 @@
 {
     "name": "apex-nitro-template-js",
-    "version": "0.0.16",
+    "version": "0.0.18",
     "description": "Template to build a JavaScript library with Apex-Nitro",
     "main": "init.js",
     "bin": {
