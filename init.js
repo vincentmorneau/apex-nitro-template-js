@@ -39,7 +39,7 @@ async function init(appDetails) {
 
     // Set main answers
     config.appUrl = answers['app-url'];
-    config.cssExtensions = [].concat(...combinedExtenstions); // Flatten array
+    config.cssExtensions = [].concat(...answers['css-extensions']); // Flatten array
 
     return config;
 }
@@ -71,11 +71,11 @@ function getTemplateQuestions(appDetails) {
             }
         },
         {
-            name: 'css-processors',
+            name: 'css-extensions',
             type: 'list',
-            message: 'Use CSS pre-processors?',
+            message: 'CSS pre-processors?',
             choices: [
-                { name: 'No, CSS only', value: ['.css'] },
+                { name: 'CSS only', value: ['.css'] },
                 new inquirer.Separator(),
                 { name: 'Less', value: ['.less'] },
                 { name: 'Sass', value: ['scss', '.sass'] },
