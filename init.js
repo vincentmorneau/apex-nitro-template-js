@@ -42,14 +42,6 @@ async function init(appDetails) {
     config.appUrl = answers['app-url'];
     config.cssExtensions = answers['css-extensions'];
 
-    if (config.cssExtensions.includes('.less')) {
-        console.log('TO-DO: install less');
-    } else if (config.cssExtensions.includes('.sass')) {
-        console.log('TO-DO: install sass');
-    } else if (config.cssExtensions.includes('.styl')) {
-        console.log('TO-DO: install stylus');
-    }
-
     return config;
 }
 
