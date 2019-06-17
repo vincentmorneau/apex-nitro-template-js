@@ -19,13 +19,13 @@ module.exports = {
  * @description Entry point for apex-nitro for building the project
  */
 async function buildDev() {
-    const buildStep = await lint();
-    if (!stepValid) {
+    let phaseValid = await lint();
+    if (!phaseValid) {
         return false;
     }
 
-    buildStep = await bundleDev();
-    return buildStep;
+    phaseValid = await bundleDev();
+    return phaseValid;
 }
 
 /**
@@ -34,23 +34,23 @@ async function buildDev() {
  * @description Entry point for apex-nitro for building the project
  */
 async function buildProd() {
-    const stepValid = await lint();
-    if (!stepValid) {
+    let phaseValid = await lint();
+    if (!phaseValid) {
         return false;
     }
 
-    stepValid = await test();
-    if (!stepValid) {
+    phaseValid = await test();
+    if (!phaseValid) {
         return false;
     }
 
-    stepValid = await jsdoc();
-    if (!stepValid) {
+    phaseValid = await jsdoc();
+    if (!phaseValid) {
         return false;
     }
 
-    stepValid = await bundleProd();
-    return stepValid;
+    phaseValid = await bundleProd();
+    return phaseValid;
 }
 
 async function bundleDev() {
