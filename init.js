@@ -18,7 +18,7 @@ async function init(appDetails) {
     // Create template config with defaults
     const config = {
         projectName: appDetails.appName,
-        libraryCode: appDetails.appName,
+        libraryName: appDetails.appName,
         main: './src/main.js',
         globals: {
             apex: 'apex'
@@ -38,12 +38,8 @@ async function init(appDetails) {
     const answers = await inquirer.prompt(getTemplateQuestions(appDetails));
 
     // Set main answers
-    config.projectName = answers['project-name'];
     config.appUrl = answers['app-url'];
-    if (answers['use-preprocessors']) {
-        combinedExtenstions = [...config.cssExtensions, ...answers['preprocessors']];
-        config.cssExtensions = [].concat(...combinedExtenstions); // Flatten array
-    }
+    config.cssExtensions = [].concat(...combinedExtenstions); // Flatten array
 
     return config;
 }
@@ -64,43 +60,28 @@ function isRequired(input) {
 function getTemplateQuestions(appDetails) {
     return [
         {
-            name: 'project-name',
+            name: 'library-name',
             type: 'input',
             default: appDetails.appName,
-            message: 'Project name:',
-            validate: (input) => {
+            message: 'Library name:',
+            validate: input => {
                 if (/^([A-Za-z\-\_\d])+$/.test(input)) return true;
-                else return 'The project name may only include letters, numbers, underscores and hashes.';
+                else
+                    return 'The library name may only include letters, numbers, underscores and hashes.';
             }
         },
         {
-            name: 'library-code',
-            type: 'input',
-            default: appDetails.appName,
-            message: 'Library code:',
-            validate: (input) => {
-                if (/^([A-Za-z\-\_\d])+$/.test(input)) return true;
-                else return 'The library code may only include letters, numbers, underscores and hashes.';
-            }
-        },
-        {
-            name: 'use-preprocessors',
-            type: 'confirm',
-            message: 'Use CSS Preprocessors?',
-            default: false
-        },
-        {
-            name: 'preprocessors',
-            type: 'checkbox',
-            message: 'Choose CSS Preprocessors',
+            name: 'css-processors',
+            type: 'list',
+            message: 'CSS processing',
             choices: [
+                { name: 'CSS', value: ['.css'] },
+                new inquirer.Separator(),
                 { name: 'Less', value: ['.less'] },
                 { name: 'Sass', value: ['scss', '.sass'] },
                 { name: 'Stylus', value: ['.styl '] }
             ],
-            when(answers) {
-                return answers.usePreprocessors;
-            }
+            default: ['.css']
         }
     ];
 }

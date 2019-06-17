@@ -13,7 +13,7 @@ export default [
     {
         input: config.main,
         output: {
-            name: config.libraryCode,
+            name: config.libraryName,
             file: `${config.distFolder}/${config.projectName}.js`,
             format: 'iife',
             sourcemap: process.env.BUILD === 'production' ? false : 'inline',
