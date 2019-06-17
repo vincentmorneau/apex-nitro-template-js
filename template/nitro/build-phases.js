@@ -19,14 +19,13 @@ module.exports = {
  * @description Entry point for apex-nitro for building the project
  */
 async function buildDev() {
-    const lintValid = await lint();
-
-    if (lintValid) {
-        await bundleDev();
-        return true;
-    } else {
+    const buildStep = await lint();
+    if (!stepValid) {
         return false;
     }
+
+    buildStep = await bundleDev();
+    return buildStep;
 }
 
 /**
@@ -35,25 +34,40 @@ async function buildDev() {
  * @description Entry point for apex-nitro for building the project
  */
 async function buildProd() {
-    await lint();
-    await test();
-    await jsdoc();
-    await bundleProd();
+    const stepValid = await lint();
+    if (!stepValid) {
+        return false;
+    }
+
+    stepValid = await test();
+    if (!stepValid) {
+        return false;
+    }
+
+    stepValid = await jsdoc();
+    if (!stepValid) {
+        return false;
+    }
+
+    stepValid = await bundleProd();
+    return stepValid;
 }
 
 async function bundleDev() {
     try {
         await runCommand('npx', ['rollup', '-c', './rollup.config.js', '--environment', 'BUILD:dev']);
+        return true;
     } catch (err) {
-        process.exit(1);
+        return false;
     }
 }
 
 async function bundleProd() {
     try {
         await runCommand('npx', ['rollup', '-c', './rollup.config.js', '--environment', 'BUILD:production']);
+        return true;
     } catch (err) {
-        process.exit(1);
+        return false;
     }
 }
 
@@ -73,16 +87,18 @@ async function lint() {
 async function jsdoc() {
     try {
         await runCommand('npx', ['jsdoc', '-c', './jsdoc.conf', '-d', './dist/doc', '-R', './README.md']);
+        return true;
     } catch (err) {
-        process.exit(1);
+        return false;
     }
 }
 
 async function test() {
     try {
         await runCommand('npx', ['ava', './test/**/*.test.js'], 'inherit');
+        return true;
     } catch (err) {
-        process.exit(1);
+        return false;
     }
 }
 
