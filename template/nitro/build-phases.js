@@ -1,3 +1,4 @@
+const path = require('path');
 const spawn = require('cross-spawn');
 const chalk = require('chalk');
 const config = require(path.resolve(process.cwd(), 'apexnitro.config.json'));
@@ -56,9 +57,10 @@ async function buildProd() {
 }
 
 async function bundleDev() {
-    console.log(chalk.cyan('Bundling project for development'));
+    console.log(chalk.cyan('=> bundling development files'));
     try {
         await runCommand('npx', ['rollup', '-c', './rollup.config.js', '--environment', 'BUILD:dev']);
+        console.log('');
         return true;
     } catch (err) {
         return false;
@@ -67,8 +69,9 @@ async function bundleDev() {
 
 async function bundleProd() {
     try {
-        console.log(chalk.cyan('Bundling project for production'));
+        console.log(chalk.cyan('=> bundling production files'));
         await runCommand('npx', ['rollup', '-c', './rollup.config.js', '--environment', 'BUILD:production']);
+        console.log('');
         return true;
     } catch (err) {
         return false;
@@ -77,7 +80,7 @@ async function bundleProd() {
 
 async function lint() {
     try {
-        console.log(chalk.cyan('Linitng source code'));
+        console.log(chalk.cyan('=> linting source code'));
         await runCommand(
             'npx',
             ['eslint', '-c', '.eslintrc.json', '--ignore-path', '.eslintignore', './src/'],
@@ -91,7 +94,7 @@ async function lint() {
 
 async function jsdoc() {
     try {
-        console.log(chalk.cyan('Generating API documentation'));
+        console.log(chalk.cyan('=> generating API documentation'));
         await runCommand('npx', [
             'jsdoc',
             '-c',
@@ -109,7 +112,7 @@ async function jsdoc() {
 
 async function test() {
     try {
-        console.log(chalk.cyan('Executing tests'));
+        console.log(chalk.cyan('=> executing tests'));
         await runCommand('npx', ['ava', './test/**/*.test.js'], 'inherit');
         return true;
     } catch (err) {
