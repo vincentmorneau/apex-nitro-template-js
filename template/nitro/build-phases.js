@@ -19,8 +19,14 @@ module.exports = {
  * @description Entry point for apex-nitro for building the project
  */
 async function buildDev() {
-    await lint();
-    await bundleDev();
+    const lintValid = await lint();
+
+    if (lintValid) {
+        await bundleDev();
+        return true;
+    } else {
+        return false;
+    }
 }
 
 /**
