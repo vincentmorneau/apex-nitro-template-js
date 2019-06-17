@@ -1,13 +1,13 @@
-const { launchBuild, publishBuild, bundleDev, bundleProd, jsdoc, lint, test } = require('../lib/builds');
+const { buildDev, buildProd, bundleDev, bundleProd, jsdoc, lint, test } = require('./build-phases');
 const commander = require('commander');
 
 if (process.argv.slice(2).length > 0) {
     // Define options
     commander
         .version('0.0.1')
-        .option('-l --launch-build', 'Build the project in development mode')
-        .option('-p --publish-build', 'Build the project in production mode')
-        .option('-d --bundle-dev', 'Bundle the project in development mode')
+        .option('-d --build-dev', 'Build the project in development mode')
+        .option('-p --build-prod', 'Build the project in production mode')
+        .option('-b --bundle-dev', 'Bundle the project in development mode')
         .option('-r --bundle-prod', 'Bundle the project in production mode')
         .option('-j --jsdoc', 'Create the JSDoc documentation')
         .option('-l --lint', 'Lint the project')
@@ -15,13 +15,13 @@ if (process.argv.slice(2).length > 0) {
         .parse(process.argv);
 
     // Take option specific action
-    if (commander.launchBuild) {
+    if (commander.buildDev) {
         (async () => {
-            await launchBuild();
+            await buildDev();
         })();
-    } else if (commander.publishBuild) {
+    } else if (commander.buildProd) {
         (async () => {
-            await publishBuild();
+            await buildProd();
         })();
     } else if (commander.bundleDev) {
         (async () => {
@@ -47,6 +47,6 @@ if (process.argv.slice(2).length > 0) {
 } else {
     // Default action, when no option is given
     (async () => {
-        await launchBuild();
+        await bundleDev();
     })();
 }

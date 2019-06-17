@@ -1,5 +1,4 @@
-const semverRegex = require("semver-regex");
-const inquirer = require("inquirer");
+const inquirer = require('inquirer');
 
 /**
  * @exports init
@@ -15,119 +14,93 @@ module.exports = init;
  * @returns {PromiseLike}
  * @description Entry point for creating a new app with the template
  */
-function init(appDetails) {
+async function init(appDetails) {
+    // Create template config with defaults
     const config = {
-        libraryName: "undefined",
-        libraryCode: "undefined",
-        main: "./src/main.js",
+        projectName: appDetails.appName,
+        libraryCode: appDetails.appName,
+        main: './src/main.js',
         globals: {
-            apex: "apex"
+            apex: 'apex'
         },
-        external: ["apex"],
-        cssExtensions: [".css", ".less"],
-        targets: "last 2 versions, >0.25%, not dead",
-        version: "undefined"
+        srcFolder: './src',
+        distFolder: './build',
+        external: ['apex'],
+        cssExtensions: ['.css'],
+        version: '1.0.0'
     };
+
     if (appDetails.suppressInquiry) {
-        return Promise.resolve(config);
+        return config;
     }
-    return inquirer.prompt(getQuestions(appDetails)).then(answers => {
-        return new Promise((resolve, reject) => {
-            try {
-                config.srcFolder = answers["src-folder"];
-                config.distFolder = answers["dist-folder"];
-                config.libraryName = answers["library-name"];
-                config.libraryCode = answers["library-code"];
-                config.version = answers["version"];
 
-                // set default browsersync settings:
-                config.browsersync = {};
-                config.browsersync.realTime = true;
-                config.browsersync.ghostMode = false;
-                config.browsersync.notify = true;
-                config.apex = {};
-                config.apex.openBuilder = false;
+    // Ask questions
+    const answers = await inquirer.prompt(getTemplateQuestions(appDetails));
 
-                // set default publish settings:
-                config.publish = {};
-                config.publish.destination = "application";
-                config.publish.path = "sqlcl";
-                config.publish.username = "";
-                config.publish.password = "";
-                config.publish.connectionString = "";
+    // Set main answers
+    config.projectName = answers['project-name'];
+    config.appUrl = answers['app-url'];
+    if (answers['use-preprocessors']) {
+        combinedExtenstions = [...config.cssExtensions, ...answers['preprocessors']];
+        config.cssExtensions = [].concat(...combinedExtenstions); // Flatten array
+    }
 
-                resolve(config);
-            } catch (err) {
-                reject(err);
-            }
-        });
-    });
+    return config;
 }
-
-const isRequired = function(input) {
-    if (input !== "") {
-        return true;
-    }
-
-    return "Required.";
-};
 
 /**
  * @private
  */
-function getQuestions(appDetails) {
+function isRequired(input) {
+    if (input !== '') {
+        return true;
+    }
+    return 'Required.';
+}
+
+/**
+ * @private
+ */
+function getTemplateQuestions(appDetails) {
     return [
         {
-            type: "input",
-            name: "src-folder",
-            message: "Location of the source folder?",
-            default: "./src",
-            validate: isRequired
-        },
-        {
-            type: "input",
-            name: "dist-folder",
-            message: "Location of the distribution folder?",
-            default: "./dist",
-            validate: isRequired
-        },
-        {
-            name: "library-name",
-            type: "input",
+            name: 'project-name',
+            type: 'input',
             default: appDetails.appName,
-            message: "Library name:",
-            validate: input => {
+            message: 'Project name:',
+            validate: (input) => {
                 if (/^([A-Za-z\-\_\d])+$/.test(input)) return true;
-                else
-                    return "The library name may only include letters, numbers, underscores and hashes.";
+                else return 'The project name may only include letters, numbers, underscores and hashes.';
             }
         },
         {
-            name: "library-code",
-            type: "input",
+            name: 'library-code',
+            type: 'input',
             default: appDetails.appName,
-            message: "Library code:",
-            validate: input => {
+            message: 'Library code:',
+            validate: (input) => {
                 if (/^([A-Za-z\-\_\d])+$/.test(input)) return true;
-                else
-                    return "The library code may only include letters, numbers, underscores and hashes.";
+                else return 'The library code may only include letters, numbers, underscores and hashes.';
             }
         },
         {
-            name: "initial-version",
-            type: "input",
-            message: "Initial version:",
-            default: "1.0.0",
-            validate: input => {
-                if (semverRegex().test(input)) return true;
-                else return "The initial version must match a semantic versions such as 0.0.1";
-            }
+            name: 'use-preprocessors',
+            type: 'confirm',
+            message: 'Use CSS Preprocessors?',
+            default: false
         },
         {
-            type: "input",
-            name: "appURL",
-            message: "The URL of your APEX application?",
-            validate: isRequired
+            name: 'preprocessors',
+            type: 'checkbox',
+            message: 'Choose CSS Preprocessors',
+            choices: [
+                { name: 'Less', value: ['.less'] },
+                { name: 'Sass', value: ['scss', '.sass'] },
+                { name: 'Stylus', value: ['.styl '] }
+            ],
+            when(answers) {
+                return answers.usePreprocessors;
+            }
         }
     ];
 }

@@ -1,36 +1,36 @@
 {
-	"name": "apex-nitro-template-js",
-	"version": "0.0.3",
-	"description": "Template to build a JavaScript library with Apex-Nitro",
-	"main": "init.js",
-	"bin": {
-		"apex-nitro-template-js": "./init.js"
-	},
-	"keywords": [
-		"oracle",
-		"apex",
-		"apex-nitro",
-		"javascript",
-		"library"
-	],
-	"dependencies": {
-		"inquirer": "^6.2.0",
-		"semver-regex": "^2.0.0"
-	},
-	"devDependencies": {
-		"xo": "^0.24.0"
-	},
-	"scripts": {
-		"test": "xo",
-		"fix": "xo --fix"
-	},
-	"xo": {
-		"ignores": []
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/dfrechdev/apex-nitro-template-js"
-	},
-	"author": "Daniel Frech, Vincent Morneau",
-	"license": "MIT"
+    "name": "apex-nitro-template-js",
+    "version": "0.0.11",
+    "description": "Template to build a JavaScript library with Apex-Nitro",
+    "main": "init.js",
+    "bin": {
+        "apex-nitro-template-js": "./init.js"
+    },
+    "keywords": [
+        "oracle",
+        "apex",
+        "apex-nitro",
+        "javascript",
+        "library"
+    ],
+    "dependencies": {
+        "inquirer": "^6.2.0",
+        "semver-regex": "^2.0.0"
+    },
+    "devDependencies": {
+        "xo": "^0.24.0"
+    },
+    "scripts": {
+        "test": "xo",
+        "fix": "xo --fix"
+    },
+    "xo": {
+        "ignores": []
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/dfrechdev/apex-nitro-template-js"
+    },
+    "author": "Daniel Frech, Vincent Morneau",
+    "license": "MIT"
 }
