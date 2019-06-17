@@ -73,9 +73,9 @@ function getTemplateQuestions(appDetails) {
         {
             name: 'css-processors',
             type: 'list',
-            message: 'CSS processing',
+            message: 'Use CSS pre-processors?',
             choices: [
-                { name: 'CSS', value: ['.css'] },
+                { name: 'No, CSS only', value: ['.css'] },
                 new inquirer.Separator(),
                 { name: 'Less', value: ['.less'] },
                 { name: 'Sass', value: ['scss', '.sass'] },
