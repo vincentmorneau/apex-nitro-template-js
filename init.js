@@ -38,8 +38,17 @@ async function init(appDetails) {
     const answers = await inquirer.prompt(getTemplateQuestions(appDetails));
 
     // Set main answers
+    config.libraryName = answers['library-name'];
     config.appUrl = answers['app-url'];
-    config.cssExtensions = [].concat(...answers['css-extensions']); // Flatten array
+    config.cssExtensions = answers['css-extensions'];
+
+    if (config.cssExtensions.contains('.less')) {
+        console.log('TO-DO: install less');
+    } else if (config.cssExtensions.contains('.sass')) {
+        console.log('TO-DO: install sass');
+    } else if (config.cssExtensions.contains('.styl')) {
+        console.log('TO-DO: install stylus');
+    }
 
     return config;
 }
@@ -73,13 +82,13 @@ function getTemplateQuestions(appDetails) {
         {
             name: 'css-extensions',
             type: 'list',
-            message: 'CSS pre-processors?',
+            message: 'CSS processors?',
             choices: [
                 { name: 'CSS only', value: ['.css'] },
                 new inquirer.Separator(),
-                { name: 'Less', value: ['.less'] },
-                { name: 'Sass', value: ['scss', '.sass'] },
-                { name: 'Stylus', value: ['.styl '] }
+                { name: 'CSS & Less', value: ['.css', '.less'] },
+                { name: 'CSS & Sass', value: ['.css', 'scss', '.sass'] },
+                { name: 'CSS & Stylus', value: ['.css', '.styl '] }
             ],
             default: ['.css']
         }
