@@ -1,31 +1,20 @@
-// optional imports for apex and jQuery, uncomment if needed in this file
-// or copy into any file where needed
+// Import your css files or any installed node package.
+// (you may import .less or other file extensions for CSS preprocessing, if you support them in your project)
+import './main.css';
+
+// Optional imports of the apex library, including jQuery. Uncomment if needed in this file
 //import apex from 'apex';
 //const $ = apex.jQuery;
 
-// import of the main less file containing your styles
-// you may remove this import if you do not want to bundle styles
-// you may import .less or other file extensions for CSS preprocessing, if you support them in your project
-import './main.css';
-
-// main information about the project
-// name and version will be injected during the build
-export const projectInfo = {
-    name: 'NPM_PACKAGE_PROJECT_NAME',
-    version: 'NPM_PACKAGE_PROJECT_VERSION',
-};
-
 /***************************************************************************************/
 
-// Your code goes here:
-// - export all variables/ objects/ functions that should be exposed in your library
-// - define your library code and project name in "package.json" file
-// - check the examples folder on how to expose properties to your library
-// example function:
+// Your code goes here. Export all variables/ objects/ functions that should be part of your library.
+// Example function:
 /**
  * @function greet
  * @description A hello world example
+ * @param {string} name - Name of the person to greet
  */
 export function greet(name) {
-    console.log(`Hello, ${name}`);
+    console.log(`Hello, ${name}!`);
 }

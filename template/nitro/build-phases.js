@@ -95,15 +95,7 @@ async function lint() {
 async function jsdoc() {
     try {
         console.log(chalk.cyan('=> generating API documentation'));
-        await runCommand('npx', [
-            'jsdoc',
-            '-c',
-            './jsdoc.conf',
-            '-d',
-            `./${config.distFolder}/doc`,
-            '-R',
-            './README.md',
-        ]);
+        await runCommand('npx', ['jsdoc', '-c', './jsdoc.conf', '-d', `./doc`, '-R', './README.md']);
         return true;
     } catch (err) {
         return false;
