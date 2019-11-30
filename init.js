@@ -39,7 +39,6 @@ async function init(appDetails) {
 
     // Set main answers
     config.libraryName = answers['library-name'];
-    config.appUrl = answers['app-url'];
     config.cssExtensions = answers['css-extensions'];
 
     return config;
