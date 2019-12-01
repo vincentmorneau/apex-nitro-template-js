@@ -11,7 +11,7 @@ module.exports = init;
  * @param {string} appDetails.appName
  * @param {string} appDetails.appPath
  * @param {boolean} appDetails.suppressInquiry
- * @returns {PromiseLike}
+ * @returns {Promise}
  * @description Entry point for creating a new app with the template
  */
 async function init(appDetails) {
@@ -47,41 +47,31 @@ async function init(appDetails) {
 /**
  * @private
  */
-function isRequired(input) {
-    if (input !== '') {
-        return true;
-    }
-    return 'Required.';
-}
-
-/**
- * @private
- */
 function getTemplateQuestions(appDetails) {
     return [
         {
             name: 'library-name',
             type: 'input',
-            default: appDetails.appName,
             message: 'Library name:',
+            default: appDetails.appName,
             validate: input => {
-                if (/^([A-Za-z\-\_\d])+$/.test(input)) return true;
+                if (/^([A-Za-z\d])+$/.test(input)) return true;
                 else
-                    return 'The library name may only include letters, numbers, underscores and hashes.';
+                    return 'The library name may only include letters and numbers.';
             }
         },
         {
             name: 'css-extensions',
             type: 'list',
             message: 'CSS processors?',
+            default: ['.css'],
             choices: [
                 { name: 'CSS only', value: ['.css'] },
                 new inquirer.Separator(),
                 { name: 'CSS & Less', value: ['.css', '.less'] },
                 { name: 'CSS & Sass', value: ['.css', 'scss', '.sass'] },
                 { name: 'CSS & Stylus', value: ['.css', '.styl '] }
-            ],
-            default: ['.css']
+            ]
         }
     ];
 }
