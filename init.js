@@ -7,17 +7,15 @@ module.exports = init;
 
 /**
  * @function init
- * @param appDetails
+ * @param {Object} appDetails
  * @param {string} appDetails.appName
  * @param {string} appDetails.appPath
- * @param {boolean} appDetails.suppressInquiry
  * @returns {Promise}
  * @description Entry point for creating a new app with the template
  */
 async function init(appDetails) {
     // Create template config with defaults
     const config = {
-        projectName: appDetails.appName,
         libraryName: appDetails.appName,
         main: './src/main.js',
         globals: {
@@ -29,10 +27,6 @@ async function init(appDetails) {
         cssExtensions: ['.css'],
         version: '1.0.0'
     };
-
-    if (appDetails.suppressInquiry) {
-        return config;
-    }
 
     // Ask questions
     const answers = await inquirer.prompt(getTemplateQuestions(appDetails));

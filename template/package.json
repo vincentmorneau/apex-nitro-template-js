@@ -23,6 +23,7 @@
         "rollup": "^1.27.6",
         "rollup-plugin-babel": "^4.3.3",
         "rollup-plugin-commonjs": "^10.1.0",
+        "rollup-plugin-copy": "^3.1.0",
         "rollup-plugin-eslint": "^7.0.0",
         "rollup-plugin-node-resolve": "^5.2.0",
         "rollup-plugin-postcss": "^2.0.3",
@@ -31,10 +32,7 @@
         "semver-regex": "^3.1.0"
     },
     "scripts": {
-        "build:dev": "node ./nitro/local-build --build-dev",
-        "build:prod": "node ./nitro/local-build --build-prod",
-        "bundle:dev": "node ./nitro/local-build --bundle-dev",
-        "bundle:prod": "node ./nitro/local-build --bundle-prod",
+        "build": "node ./nitro/local-build --build",
         "lint": "node ./nitro/local-build --lint",
         "jsdoc": "node ./nitro/local-build --jsdoc",
         "test": "node ./nitro/local-build --test",
@@ -48,6 +46,6 @@
             "ignore-styles"
         ]
     },
-    "author": "",
-    "license": ""
+    "author": "Vincent Morneau, Daniel Frech",
+    "license": "MIT"
 }
