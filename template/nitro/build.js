@@ -51,25 +51,24 @@ async function jsdoc() {
  * @description Entry point for apex-nitro for building the project
  */
 async function build() {
-    let valid = await lint();
-    if (!valid) {
-        return false;
-    }
+    // let valid = await lint();
+    // if (!valid) {
+    //     return false;
+    // }
 
-    valid = await test();
-    if (!valid) {
-        return false;
-    }
+    // valid = await test();
+    // if (!valid) {
+    //     return false;
+    // }
 
-    valid = await jsdoc();
-    if (!valid) {
-        return false;
-    }
+    // valid = await jsdoc();
+    // if (!valid) {
+    //     return false;
+    // }
 
     try {
         console.log(chalk.cyan('=> bundling files'));
-        await runCommand('npx', ['rollup', '-c', './rollup.config.js', '--environment', 'BUILD:dev']);
-        await runCommand('npx', ['rollup', '-c', './rollup.config.js', '--environment', 'BUILD:production']);
+        await runCommand('npx', ['rollup', '-c']);
         console.log('');
         return true;
     } catch (err) {
@@ -77,7 +76,7 @@ async function build() {
     }
 }
 
-function runCommand(command, args, stdioSetting = ['ignore', 'ignore', process.stderr]) {
+function runCommand(command, args, stdioSetting = 'inherit') {
     return new Promise((resolve, reject) => {
         const child = spawn(command, args, {
             cwd: process.cwd(),

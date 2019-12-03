@@ -1,4 +1,7 @@
 *.css
 *.less
 *.sass
+*.scss
+*.styl
 package.json
+src/static

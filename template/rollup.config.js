@@ -15,9 +15,9 @@ export default [
     input: config.main,
     output: {
       name: config.libraryName,
-      file: `${config.distFolder}/${config.libraryName}${process.env.BUILD === 'production' ? '.min' : ''}.js`,
+      file: `${config.distFolder}/${config.libraryName}.js`,
       format: 'iife',
-      sourcemap: process.env.BUILD === 'production' ? false : true,
+      sourcemap: true,
       globals: config.globals
     },
     external: config.external,
@@ -31,9 +31,9 @@ export default [
       }),
       postcss({
         extensions: config.cssExtensions,
-        plugins: process.env.BUILD === 'production' ? [autoprefixer(), cssnano()] : [autoprefixer()],
-        extract: `${config.distFolder}/${config.libraryName}${process.env.BUILD === 'production' ? '.min' : ''}.css`,
-        sourceMap: process.env.BUILD === 'production' ? false : true
+        plugins: [autoprefixer()],
+        extract: `${config.distFolder}/${config.libraryName}.css`,
+        sourceMap: true
       }),
       resolve({
         mainFields: ['main']
@@ -42,8 +42,41 @@ export default [
       eslint(),
       babel({
         babelrc: true
+      })
+    ]
+  },
+  {
+    input: config.main,
+    output: {
+      name: config.libraryName,
+      file: `${config.distFolder}/${config.libraryName}.min.js`,
+      format: 'iife',
+      sourcemap: false,
+      globals: config.globals
+    },
+    external: config.external,
+    plugins: [
+      replace({
+        include: config.main,
+        values: {
+          NPM_PACKAGE_PROJECT_NAME: config.libraryName,
+          NPM_PACKAGE_PROJECT_VERSION: config.version
+        }
       }),
-      process.env.BUILD === 'production' ? terser() : null,
+      postcss({
+        extensions: config.cssExtensions,
+        plugins: [autoprefixer(), cssnano()],
+        extract: `${config.distFolder}/${config.libraryName}.min.css`,
+        sourceMap: false
+      }),
+      resolve({
+        mainFields: ['main']
+      }),
+      commonjs(),
+      babel({
+        babelrc: true
+      }),
+      terser(),
       copy({
         targets: [
           { src: `${config.srcFolder}/static`, dest: `${config.distFolder}` }
