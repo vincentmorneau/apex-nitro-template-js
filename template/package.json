@@ -1,7 +1,14 @@
 {
     "name": "apex-nitro-template-js",
-    "description": "Template to bootstrap a JavaScript library for Oracle APEX applications",
+    "description": "APEX Nitro Pro JavaScript template (default)",
     "version": "1.0.0",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/vincentmorneau/apex-nitro-template-js.git"
+    },
+    "bugs": {
+      "url": "https://github.com/vincentmorneau/apex-nitro-template-js/issues"
+    },
     "dependencies": {
         "@babel/core": "^7.7.5",
         "@babel/preset-env": "^7.7.6",
@@ -12,7 +19,6 @@
         "commander": "^4.0.1",
         "cross-spawn": "^7.0.1",
         "cssnano": "^4.1.10",
-        "jsdoc": "^3.6.3",
         "rollup": "^1.27.9",
         "rollup-plugin-babel": "^4.3.3",
         "rollup-plugin-commonjs": "^10.1.0",
@@ -20,14 +26,11 @@
         "rollup-plugin-eslint": "^7.0.0",
         "rollup-plugin-node-resolve": "^5.2.0",
         "rollup-plugin-postcss": "^2.0.3",
-        "rollup-plugin-replace": "^2.2.0",
         "rollup-plugin-terser": "^5.1.2"
     },
     "scripts": {
-        "build": "node ./nitro/local-build --build",
-        "lint": "node ./nitro/local-build --lint",
-        "jsdoc": "node ./nitro/local-build --jsdoc",
         "test": "node ./nitro/local-build --test",
+        "build": "apex-nitro build",
         "launch": "apex-nitro launch",
         "publish": "apex-nitro publish"
     },

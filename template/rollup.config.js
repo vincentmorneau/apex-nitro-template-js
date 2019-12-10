@@ -4,7 +4,6 @@ import babel from 'rollup-plugin-babel';
 import postcss from 'rollup-plugin-postcss';
 import cssnano from 'cssnano';
 import autoprefixer from 'autoprefixer';
-import replace from 'rollup-plugin-replace';
 import copy from 'rollup-plugin-copy';
 import { terser } from 'rollup-plugin-terser';
 import { eslint } from 'rollup-plugin-eslint';
@@ -24,13 +23,6 @@ export default [
 		},
 		external: apexnitroConfig.external,
 		plugins: [
-			replace({
-				include: apexnitroConfig.main,
-				values: {
-					NPM_PACKAGE_PROJECT_NAME: apexnitroConfig.libraryName,
-					NPM_PACKAGE_PROJECT_VERSION: apexnitroConfig.version
-				}
-			}),
 			postcss({
 				extensions: apexnitroConfig.cssExtensions,
 				plugins: [autoprefixer()],
@@ -54,13 +46,6 @@ export default [
 		},
 		external: apexnitroConfig.external,
 		plugins: [
-			replace({
-				include: apexnitroConfig.main,
-				values: {
-					NPM_PACKAGE_PROJECT_NAME: apexnitroConfig.libraryName,
-					NPM_PACKAGE_PROJECT_VERSION: apexnitroConfig.version
-				}
-			}),
 			postcss({
 				extensions: apexnitroConfig.cssExtensions,
 				plugins: [autoprefixer(), cssnano()],
