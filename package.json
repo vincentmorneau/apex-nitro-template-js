@@ -1,6 +1,6 @@
 {
     "name": "apex-nitro-template-js",
-    "version": "0.0.20",
+    "version": "1.0.0",
     "description": "Template to build a JavaScript library with APEX Nitro",
     "main": "init.js",
     "bin": {
@@ -11,6 +11,7 @@
         "apex",
         "apex-nitro",
         "javascript",
+        "template",
         "library"
     ],
     "dependencies": {
@@ -28,7 +29,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/dfrechdev/apex-nitro-template-js"
+        "url": "https://github.com/OraOpenSource/apex-nitro-template-js"
     },
     "author": "Daniel Frech, Vincent Morneau",
     "license": "MIT"

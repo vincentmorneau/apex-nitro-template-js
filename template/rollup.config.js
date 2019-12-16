@@ -32,7 +32,9 @@ export default [
 			resolve(),
 			commonjs(),
 			eslint(),
-			babel()
+			babel({
+				runtimeHelpers: true
+			})
 		]
 	},
 	{
@@ -54,7 +56,9 @@ export default [
 			}),
 			resolve(),
 			commonjs(),
-			babel(),
+			babel({
+				runtimeHelpers: true
+			}),
 			terser(),
 			copy({
 				targets: [{ src: `${apexnitroConfig.srcFolder}/static`, dest: `${apexnitroConfig.distFolder}` }]
