@@ -1,18 +1,18 @@
-const path = require("path");
-const apexnitroConfig = require("./apexnitro.config.json");
-const autoprefixer = require("autoprefixer");
-const CopyPlugin = require("copy-webpack-plugin");
+const path = require('path');
+const apexnitroConfig = require('./apexnitro.config.json');
+const autoprefixer = require('autoprefixer');
+const CopyPlugin = require('copy-webpack-plugin');
 
 apexnitroConfig.globals = apexnitroConfig.external.reduce((a, b) => ((a[b] = b), a), {});
 
 module.exports = {
-  mode: "development",
-  devtool: "eval",
+  mode: 'development',
+  devtool: 'eval',
   entry: [apexnitroConfig.mainCss, apexnitroConfig.mainJs],
   output: {
     path: path.resolve(apexnitroConfig.distFolder),
     library: apexnitroConfig.libraryName,
-    filename: `${apexnitroConfig.libraryName}.js`
+    filename: `${apexnitroConfig.libraryName}.js`,
   },
   module: {
     rules: [
@@ -20,48 +20,48 @@ module.exports = {
         test: /\.scss$/,
         use: [
           {
-            loader: "file-loader",
+            loader: 'file-loader',
             options: {
-              name: `${apexnitroConfig.libraryName}.css`
-            }
+              name: `${apexnitroConfig.libraryName}.css`,
+            },
           },
-          { loader: "extract-loader" },
-          { loader: "css-loader?-url" },
+          { loader: 'extract-loader' },
+          { loader: 'css-loader?-url' },
           {
-            loader: "postcss-loader",
+            loader: 'postcss-loader',
             options: {
-              plugins: () => [autoprefixer()]
-            }
+              plugins: () => [autoprefixer()],
+            },
           },
           {
-            loader: "sass-loader",
+            loader: 'sass-loader',
             options: {
               webpackImporter: false,
-              implementation: require("sass"),
+              implementation: require('sass'),
               sassOptions: {
-                includePaths: ["./node_modules"]
-              }
-            }
-          }
-        ]
+                includePaths: ['./node_modules'],
+              },
+            },
+          },
+        ],
       },
       {
         test: /\.js$/,
-        loader: "babel-loader",
+        loader: 'babel-loader',
         query: {
-          presets: ["@babel/preset-env"]
-        }
-      }
-    ]
+          presets: ['@babel/preset-env'],
+        },
+      },
+    ],
   },
   plugins: [
     new CopyPlugin({
       patterns: [
         {
-          from: path.resolve(apexnitroConfig.srcFolder, "static"),
-          to: path.resolve(apexnitroConfig.distFolder, "static")
-        }
-      ]
-    })
-  ]
+          from: path.resolve(apexnitroConfig.srcFolder, 'static'),
+          to: path.resolve(apexnitroConfig.distFolder, 'static'),
+        },
+      ],
+    }),
+  ],
 };

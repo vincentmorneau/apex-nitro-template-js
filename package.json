@@ -25,7 +25,11 @@
     "fix": "xo --fix"
   },
   "xo": {
-    "ignores": []
+    "ignores": [
+      "template/webpack.dev.js",
+      "template/webpack.prod.js",
+      "template/src"
+    ]
   },
   "repository": {
     "type": "git",
