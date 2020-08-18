@@ -4,9 +4,9 @@ This project creates a bundle with the JavaScript and CSS components for the APE
 
 ## Prerequisites
 
--   Node.js >= 8 and npm >= 5
--   APEX-Nitro >= 5.0.0 installed globally
--   SQLcl
+- Node.js >= 8 and npm >= 5
+- APEX-Nitro >= 5.0.0 installed globally
+- SQLcl
 
 ## Launch in development mode
 
@@ -16,8 +16,6 @@ npm run launch
 
 In development mode the source code is checked with ESLint and the APEX application is opened with all current changes. Every change of a file in the source folder triggers a rebuild and the APEX application is reloaded once the build has completed with the new changes included.
 
-**All changes made in development mode are not permanently stored in APEX! They are only valid in the APEX application for the time the launch process is executing. To permanently store the changes, publish your project in production mode.**
-
 ## Publish with production mode
 
 ```bash
@@ -26,8 +24,8 @@ npm run publish
 
 In production mode all changes in the project are permanently published to APEX. In addition to the development mode, the following build steps are executed in production mode:
 
--   API documentation is generated in the folder "doc" at the root of the project
--   All tests created in the folder "tests" are executed
+- API documentation is generated in the folder "doc" at the root of the project
+- All tests created in the folder "tests" are executed
 
 ## Static files
 
