@@ -1,15 +1,15 @@
 {
-  "name": "apex-nitro-template-js",
-  "description": "APEX Nitro Pro JavaScript template (default)",
+  "name": "apex-nitro-template-default",
+  "description": "APEX Nitro Pro template (default)",
   "version": "1.0.0",
   "author": "Vincent Morneau",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vincentmorneau/apex-nitro-template-js.git"
+    "url": "https://github.com/vincentmorneau/apex-nitro-template-default.git"
   },
   "bugs": {
-    "url": "https://github.com/vincentmorneau/apex-nitro-template-js/issues"
+    "url": "https://github.com/vincentmorneau/apex-nitro-template-default/issues"
   },
   "scripts": {
     "build-dev": "webpack --config webpack.dev.js",
