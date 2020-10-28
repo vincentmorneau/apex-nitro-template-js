@@ -18,7 +18,7 @@
     "inquirer": "^7.3.3"
   },
   "devDependencies": {
-    "xo": "^0.33.0"
+    "xo": "^0.34.1"
   },
   "scripts": {
     "test": "xo",
