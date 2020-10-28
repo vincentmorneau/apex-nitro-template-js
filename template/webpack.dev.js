@@ -2,7 +2,132 @@ const path = require("path");
 const apexnitroConfig = require("./apexnitro.config.json");
 const CopyPlugin = require("copy-webpack-plugin");
 
-apexnitroConfig.globals = apexnitroConfig.external.reduce((a, b) => ((a[b] = b), a), {});
+let styleRule;
+
+if (apexnitroConfig.cssExtensions.includes('css')) {
+  styleRule = {
+    test: /\.css$/i,
+    use: [
+      {
+        loader: "file-loader",
+        options: {
+          name: `${apexnitroConfig.libraryName}.css`
+        }
+      },
+      { loader: "extract-loader" },
+      { loader: "css-loader" },
+      {
+        loader: 'postcss-loader',
+        options: {
+          postcssOptions: {
+            plugins: [
+              [
+                'postcss-preset-env',
+                {},
+              ],
+            ],
+          },
+        },
+      }
+    ]
+  };
+}
+
+if (apexnitroConfig.cssExtensions.includes('scss')) {
+  styleRule = {
+    test: /\.s[ac]ss$/i,
+    use: [
+      {
+        loader: "file-loader",
+        options: {
+          name: `${apexnitroConfig.libraryName}.css`
+        }
+      },
+      { loader: "extract-loader" },
+      { loader: "css-loader" },
+      {
+        loader: 'postcss-loader',
+        options: {
+          postcssOptions: {
+            plugins: [
+              [
+                'postcss-preset-env',
+                {},
+              ],
+            ],
+          },
+        },
+      },
+      {
+        loader: "sass-loader"
+      }
+    ]
+  };
+}
+
+if (apexnitroConfig.cssExtensions.includes('less')) {
+  styleRule = {
+    test: /\.less$/,
+    use: [
+      {
+        loader: "file-loader",
+        options: {
+          name: `${apexnitroConfig.libraryName}.css`
+        }
+      },
+      { loader: "extract-loader" },
+      { loader: "css-loader" },
+      {
+        loader: 'postcss-loader',
+        options: {
+          postcssOptions: {
+            plugins: [
+              [
+                'postcss-preset-env',
+                {},
+              ],
+            ],
+          },
+        },
+      },
+      {
+        loader: "less-loader"
+      }
+    ]
+  };
+}
+
+if (apexnitroConfig.cssExtensions.includes('styl')) {
+  styleRule = {
+    test: /\.styl$/,
+    use: [
+      {
+        loader: "file-loader",
+        options: {
+          name: `${apexnitroConfig.libraryName}.css`
+        }
+      },
+      { loader: "extract-loader" },
+      { loader: "css-loader" },
+      {
+        loader: 'postcss-loader',
+        options: {
+          postcssOptions: {
+            plugins: [
+              [
+                'postcss-preset-env',
+                {},
+              ],
+            ],
+          },
+        },
+      },
+      {
+        loader: "stylus-loader"
+      }
+    ]
+  };
+}
 
 module.exports = {
   mode: "development",
@@ -16,52 +141,16 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.scss$/,
-        use: [
-          {
-            loader: "file-loader",
-            options: {
-              name: `${apexnitroConfig.libraryName}.css`
-            }
-          },
-          { loader: "extract-loader" },
-          { loader: "css-loader?-url" },
-          {
-            loader: 'postcss-loader',
-            options: {
-              postcssOptions: {
-                plugins: [
-                  [
-                    'postcss-preset-env',
-                    {
-                      // Options
-                    },
-                  ],
-                ],
-              },
-            },
-          },
-          {
-            loader: "sass-loader",
-            options: {
-              webpackImporter: false,
-              implementation: require("sass"),
-              sassOptions: {
-                includePaths: ["./node_modules"]
-              }
-            }
-          }
-        ]
-      },
-      {
-        test: /\.js$/,
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
         use: {
           loader: 'babel-loader',
           options: {
             presets: ['@babel/preset-env']
           }
         }
-      }
+      },
+      styleRule
     ]
   },
   plugins: [

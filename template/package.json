@@ -1,7 +1,7 @@
 {
   "name": "apex-nitro-template-default",
-  "description": "APEX Nitro Pro template (default)",
-  "version": "1.0.0",
+  "version": "2.0.0",
+  "description": "APEX Nitro Template - Default",
   "author": "Vincent Morneau",
   "license": "MIT",
   "repository": {
