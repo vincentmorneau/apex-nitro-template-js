@@ -11,7 +11,7 @@ if (apexnitroConfig.cssExtensions.includes('css')) {
       {
         loader: "file-loader",
         options: {
-          name: `${apexnitroConfig.libraryName}.css`
+          name: `${apexnitroConfig.libraryName}.min.css`
         }
       },
       { loader: "extract-loader" },
@@ -40,7 +40,7 @@ if (apexnitroConfig.cssExtensions.includes('scss')) {
       {
         loader: "file-loader",
         options: {
-          name: `${apexnitroConfig.libraryName}.css`
+          name: `${apexnitroConfig.libraryName}.min.css`
         }
       },
       { loader: "extract-loader" },
@@ -72,7 +72,7 @@ if (apexnitroConfig.cssExtensions.includes('less')) {
       {
         loader: "file-loader",
         options: {
-          name: `${apexnitroConfig.libraryName}.css`
+          name: `${apexnitroConfig.libraryName}.min.css`
         }
       },
       { loader: "extract-loader" },
@@ -104,7 +104,7 @@ if (apexnitroConfig.cssExtensions.includes('styl')) {
       {
         loader: "file-loader",
         options: {
-          name: `${apexnitroConfig.libraryName}.css`
+          name: `${apexnitroConfig.libraryName}.min.css`
         }
       },
       { loader: "extract-loader" },

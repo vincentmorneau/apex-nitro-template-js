@@ -1,17 +1,12 @@
-// Import your css files or any installed node package.
-import './main.css';
+import p1 from "./js/p1";
+import p2 from "./js/p2";
 
-// Optional imports of the apex library, including jQuery. Uncomment if needed in this file
-// import apex from 'apex';
-// const $ = apex.jQuery;
+export {
+  p1,
+  p2
+};
 
-// Your code goes here. Export all variables/ objects/ functions that should be part of your library.
-// Example function:
-/**
- * @function greet
- * @description A hello world example
- * @param {string} name - Name of the person to greet
- */
-export function greet(name) {
-  console.log(`Hello, ${name}!`);
-}
+apex.jQuery(document).ready(() => {
+  if (document.getElementById("pFlowStepId").value === "1") p1.init();
+  if (document.getElementById("pFlowStepId").value === "2") p2.init();
+});
