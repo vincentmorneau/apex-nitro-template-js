@@ -1,6 +1,6 @@
 {
   "name": "apex-nitro-template-default",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "APEX Nitro Template - Default",
   "main": "init.js",
   "bin": {
