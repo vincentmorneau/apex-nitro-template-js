@@ -7,6 +7,7 @@ export {
 };
 
 apex.jQuery(document).ready(() => {
-  if (document.getElementById("pFlowStepId").value === "1") p1.init();
-  if (document.getElementById("pFlowStepId").value === "2") p2.init();
+	const pageId = Number(document.getElementById("pFlowStepId").value);
+  if (pageId === 1) p1.init();
+  if (pageId === 2) p2.init();
 });
