@@ -15,7 +15,7 @@ if (apexnitroConfig.cssExtensions.includes('css')) {
         }
       },
       { loader: "extract-loader" },
-      { loader: "css-loader" },
+      { loader: "css-loader?-url" },
       {
         loader: 'postcss-loader',
         options: {
@@ -44,7 +44,7 @@ if (apexnitroConfig.cssExtensions.includes('scss')) {
         }
       },
       { loader: "extract-loader" },
-      { loader: "css-loader" },
+      { loader: "css-loader?-url" },
       {
         loader: 'postcss-loader',
         options: {
@@ -76,7 +76,7 @@ if (apexnitroConfig.cssExtensions.includes('less')) {
         }
       },
       { loader: "extract-loader" },
-      { loader: "css-loader" },
+      { loader: "css-loader?-url" },
       {
         loader: 'postcss-loader',
         options: {
@@ -108,7 +108,7 @@ if (apexnitroConfig.cssExtensions.includes('styl')) {
         }
       },
       { loader: "extract-loader" },
-      { loader: "css-loader" },
+      { loader: "css-loader?-url" },
       {
         loader: 'postcss-loader',
         options: {
