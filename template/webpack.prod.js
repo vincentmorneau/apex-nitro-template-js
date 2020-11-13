@@ -1,6 +1,7 @@
 const path = require("path");
 const apexnitroConfig = require("./apexnitro.config.json");
 const CopyPlugin = require("copy-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 let styleRule;
 
@@ -8,13 +9,7 @@ if (apexnitroConfig.cssExtensions.includes('css')) {
   styleRule = {
     test: /\.css$/i,
     use: [
-      {
-        loader: "file-loader",
-        options: {
-          name: `${apexnitroConfig.libraryName}.min.css`
-        }
-      },
-      { loader: "extract-loader" },
+      MiniCssExtractPlugin.loader,
       { loader: "css-loader?-url" },
       {
         loader: 'postcss-loader',
@@ -37,13 +32,7 @@ if (apexnitroConfig.cssExtensions.includes('scss')) {
   styleRule = {
     test: /\.s[ac]ss$/i,
     use: [
-      {
-        loader: "file-loader",
-        options: {
-          name: `${apexnitroConfig.libraryName}.min.css`
-        }
-      },
-      { loader: "extract-loader" },
+      MiniCssExtractPlugin.loader,
       { loader: "css-loader?-url" },
       {
         loader: 'postcss-loader',
@@ -69,13 +58,7 @@ if (apexnitroConfig.cssExtensions.includes('less')) {
   styleRule = {
     test: /\.less$/,
     use: [
-      {
-        loader: "file-loader",
-        options: {
-          name: `${apexnitroConfig.libraryName}.min.css`
-        }
-      },
-      { loader: "extract-loader" },
+      MiniCssExtractPlugin.loader,
       { loader: "css-loader?-url" },
       {
         loader: 'postcss-loader',
@@ -101,13 +84,7 @@ if (apexnitroConfig.cssExtensions.includes('styl')) {
   styleRule = {
     test: /\.styl$/,
     use: [
-      {
-        loader: "file-loader",
-        options: {
-          name: `${apexnitroConfig.libraryName}.min.css`
-        }
-      },
-      { loader: "extract-loader" },
+      MiniCssExtractPlugin.loader,
       { loader: "css-loader?-url" },
       {
         loader: 'postcss-loader',
@@ -152,6 +129,9 @@ module.exports = {
     ]
   },
   plugins: [
+    new MiniCssExtractPlugin({
+      filename: `${apexnitroConfig.libraryName}.min.css`
+    }),
     new CopyPlugin({
       patterns: [
         {
